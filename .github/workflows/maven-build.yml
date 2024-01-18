@@ -55,7 +55,7 @@ jobs:
       - name: Deploy
         run: echo "deploying in Dev env...."
   deployonqa:
-    timeout-minutes: 5
+    timeout-minutes: 4
     runs-on: ubuntu-latest
     needs: 
       - envbranch
@@ -68,5 +68,7 @@ jobs:
       NAME: ${{ vars.NAME }}
       URL: ${{ vars.URL }}
     steps:  
+      - name: sleeping
+        run: sleep 300
       - name: print vars values
         run: echo "deploying on QA"
