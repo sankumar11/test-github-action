@@ -1,29 +1,24 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: Java CI with Maven
-
+name: Dev Java CI with Maven
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
 
-jobs:
-  build:
-
+jobs: 
+  envbranch:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [ '17' ]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK ${{matrix.java}}
-      uses: actions/setup-java@v2
-      with:
-        java-version: ${{matrix.java}}
-        distribution: 'adopt'
-        cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check the branch and select the envirnoment
+        id: branch_check
+        run: |
+          echo "Running on branch ${{ github.ref }}"
+          if [ "${{ github.ref }}" = "refs/heads/master" ]; then
+            echo "env_name=UAT" >> $GITHUB_OUTPUT
+          fi
+      - name: Use variable setup in previous step
+        run: echo "Using envirnoment ${{ steps.branch_check.outputs.env_name }}"
+    outputs:
+      env_name: ${{ steps.branch_check.outputs.env_name }} 
