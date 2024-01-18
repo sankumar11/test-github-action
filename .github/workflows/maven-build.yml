@@ -9,7 +9,7 @@ jobs:
   job-one:
     # This job gets a timeout of 60 minutes as set by the global attribute
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 10
   envbranch:
     runs-on: ubuntu-latest
     steps:
