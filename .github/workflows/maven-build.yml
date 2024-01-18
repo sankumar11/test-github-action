@@ -55,6 +55,7 @@ jobs:
       - name: Deploy
         run: echo "deploying in Dev env...."
   deployonqa:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     needs: 
       - envbranch
