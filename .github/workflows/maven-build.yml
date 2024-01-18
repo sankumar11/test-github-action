@@ -38,3 +38,19 @@ jobs:
           echo "$TOKEN"
           echo "$NAME"
           echo "$URL"
+  deploy:
+    runs-on: ubuntu-latest
+    needs: 
+      - envbranch
+      - build
+      
+    environment:
+      name: ${{ needs.envbranch.outputs.env_name }}
+    env:
+      TOKEN: ${{ secrets.TOKEN }}
+      NAME: ${{ vars.NAME }}
+      URL: ${{ vars.URL }}
+    steps:    
+      # Update the backend service to use the new image.
+      - name: Deploy
+        run: echo "deploying in Dev env...."
