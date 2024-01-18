@@ -54,3 +54,18 @@ jobs:
       # Update the backend service to use the new image.
       - name: Deploy
         run: echo "deploying in Dev env...."
+  deployonqa:
+    runs-on: ubuntu-latest
+    needs: 
+      - envbranch
+      - build
+      - deploy
+    environment:
+     name: QA
+    env:
+      TOKEN: ${{ secrets.TOKEN }}
+      NAME: ${{ vars.NAME }}
+      URL: ${{ vars.URL }}
+    steps:  
+      - name: print vars values
+        run: echo "deploying on QA"
