@@ -27,6 +27,8 @@ jobs:
     steps:
       - name: Deploy
         run: echo "Deploying on Prod...."
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
