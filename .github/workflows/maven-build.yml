@@ -68,7 +68,5 @@ jobs:
       NAME: ${{ vars.NAME }}
       URL: ${{ vars.URL }}
     steps:  
-      - name: sleeping
-        run: sleep 300
       - name: print vars values
         run: echo "deploying on QA"
