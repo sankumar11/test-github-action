@@ -1,4 +1,4 @@
-name: Dev Java CI with Maven
+name: Dev-updated Java CI with Maven
 on: workflow_dispatch
 #on:
 #  push:
