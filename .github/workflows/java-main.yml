@@ -23,51 +23,49 @@ jobs:
         run: echo "Using envirnoment ${{ steps.branch_check.outputs.env_name }}"
     outputs:
       env_name: ${{ steps.branch_check.outputs.env_name }} 
-  build:  
+  deploy:  
     runs-on: ubuntu-latest
     needs: envbranch
     
     environment: ${{ needs.envbranch.outputs.env_name }}
       #name: ${{ needs.envbranch.outputs.env_name }}  
     env:
-      TOKEN: ${{ secrets.TOKEN }}
-      NAME: ${{ vars.NAME }}
-      URL: ${{ vars.URL }} 
+      DUPLO_HOST: ${{ vars.DUPLO_HOST }}
+      SERVICE_NAME: ${{ vars.SERVICE_NAME }} 
     steps:
       - name: print vars values
         run: |
-          echo "$TOKEN"
-          echo "$NAME"
-          echo "$URL"
-  deploy:
+          echo "$DUPLO_HOST"
+          echo "$SERVICE_NAME"
+      - name: Deploy on Dev
+        run: echo "deploying in $DUPLO_HOST env...."
+  deployQA:
     runs-on: ubuntu-latest
     needs: 
       - envbranch
-      - build
+      - deploy
       
     environment:
-      name: ${{ needs.envbranch.outputs.env_name }}
+      name: QA
     env:
-      TOKEN: ${{ secrets.TOKEN }}
-      NAME: ${{ vars.NAME }}
-      URL: ${{ vars.URL }}
+      DUPLO_HOST: ${{ vars.DUPLO_HOST }}
+      SERVICE_NAME: ${{ vars.SERVICE_NAME }}
     steps:    
       # Update the backend service to use the new image.
-      - name: Deploy
-        run: echo "deploying in Dev env...."
-  deployonqa:
-    timeout-minutes: 3
+      - name: Deploy on QA
+        run: echo "deploying in $DUPLO_HOST env...."
+  deployProd:
     runs-on: ubuntu-latest
     needs: 
       - envbranch
-      - build
       - deploy
+      - deployQA
     environment:
-     name: QA
+      name: Prod
     env:
-      TOKEN: ${{ secrets.TOKEN }}
-      NAME: ${{ vars.NAME }}
-      URL: ${{ vars.URL }}
-    steps:  
-      - name: print vars values
-        run: echo "deploying on QA"
+      DUPLO_HOST: ${{ vars.DUPLO_HOST }}
+      SERVICE_NAME: ${{ vars.SERVICE_NAME }}
+    steps:    
+      # Update the backend service to use the new image.
+      - name: Deploy on Prod
+        run: echo "deploying in $DUPLO_HOST env...."
