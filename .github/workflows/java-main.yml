@@ -44,6 +44,7 @@ jobs:
     needs: 
       - envbranch
       - deployOnDev
+    if: ${{ always() }}
       
     environment:
       name: QA
@@ -60,6 +61,7 @@ jobs:
       - envbranch
       - deployOnDev
       - deployQA
+    if: ${{ always() }}
     environment:
       name: Prod
     env:
