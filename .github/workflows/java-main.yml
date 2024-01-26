@@ -44,7 +44,6 @@ jobs:
     needs: 
       - envbranch
       - deployOnDev
-    if: ${{ always() }}
       
     environment:
       name: QA
