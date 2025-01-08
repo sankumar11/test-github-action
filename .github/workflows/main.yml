@@ -41,6 +41,11 @@ jobs:
           # Update build.gradle with the new versionCode
           echo "$newVersionCode" > version.env
           cat version.env
+          git config user.name "sankumar11"
+          git config user.email "sankumar.549@gmail.com"
+          git add version.env
+          git commit -m "Update version.env to version $newVersionCode"
+          git push origin HEAD
 
           # Save the new versionCode back to GitHub Actions environment
           #echo "ANDROID_VERSION_CODE=$newVersionCode" >> $GITHUB_ENV
