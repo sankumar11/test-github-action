@@ -24,6 +24,29 @@ jobs:
         run: echo "Using envirnoment ${{ steps.branch_check.outputs.env_name }}"
     outputs:
       env_name: ${{ steps.branch_check.outputs.env_name }} 
+  versioning:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set Current Version Code
+        env:
+          ANDROID_VERSION_CODE: ${{ vars.ANDROID_VERSION_CODE }} # Load from GitHub Secrets
+        run: |
+          # Get the current versionCode
+          currentVersionCode=$(cat version.env)
+          newVersionCode=$((currentVersionCode + 1))
+          
+          echo "Current versionCode: $currentVersionCode"
+          echo "New versionCode: $newVersionCode"
+
+          # Update build.gradle with the new versionCode
+          #echo "$newVersionCode" > version.env
+
+          # Save the new versionCode back to GitHub Actions environment
+          #echo "ANDROID_VERSION_CODE=$newVersionCode" >> $GITHUB_ENV
+
+          #echo "New versionCode updated in build.gradle and GitHub Actions environment."  
   Deploy:
     runs-on: ubuntu-latest
     steps:
