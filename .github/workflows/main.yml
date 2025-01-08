@@ -2,8 +2,8 @@ name: Versioning check
 on:
   push:
     branches: [ main ]
-    paths-ignore:
-      - version.env
+    #paths-ignore:
+    #  - version.env
 
 jobs: 
   envbranch:
