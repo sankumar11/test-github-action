@@ -30,8 +30,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Set Current Version Code
-        env:
-          ANDROID_VERSION_CODE: ${{ vars.ANDROID_VERSION_CODE }} # Load from GitHub Secrets
         run: |
           # Get the current versionCode
           currentVersionCode=$(cat version.env)
@@ -41,7 +39,7 @@ jobs:
           echo "New versionCode: $newVersionCode"
 
           # Update build.gradle with the new versionCode
-          #echo "$newVersionCode" > version.env
+          echo "$newVersionCode" > version.env
 
           # Save the new versionCode back to GitHub Actions environment
           #echo "ANDROID_VERSION_CODE=$newVersionCode" >> $GITHUB_ENV
