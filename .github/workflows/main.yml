@@ -40,6 +40,7 @@ jobs:
 
           # Update build.gradle with the new versionCode
           echo "$newVersionCode" > version.env
+          cat version.env
 
           # Save the new versionCode back to GitHub Actions environment
           #echo "ANDROID_VERSION_CODE=$newVersionCode" >> $GITHUB_ENV
