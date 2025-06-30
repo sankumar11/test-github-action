@@ -6,7 +6,7 @@ name: Versioning check
 #     #  - version.env
 on:
   schedule:
-    - cron: '50 9 * * *'
+    - cron: '30 9 * * *'
 
 jobs: 
   envbranch:
