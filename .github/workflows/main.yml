@@ -1,12 +1,12 @@
 name: Versioning check
-on:
-  push:
-    branches: [ main ]
-    #paths-ignore:
-    #  - version.env
 # on:
-#   schedule:
-#     - cron: '30 7 * * *'
+#   push:
+#     branches: [ main ]
+#     #paths-ignore:
+#     #  - version.env
+on:
+  schedule:
+    - cron: '50 9 * * *'
 
 jobs: 
   envbranch:
