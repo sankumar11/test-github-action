@@ -19,5 +19,15 @@ pipeline {
                 echo "Running tests..."
             }
         }
+        stage('JSM Triggered Job') {
+            when {
+                expression {
+                    return params.JSM_TRIGGER == 'true'
+                }
+            }
+            steps {
+                echo "Triggered from Jira"
+            }
+        }
     }
 }
